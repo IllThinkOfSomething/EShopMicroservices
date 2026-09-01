@@ -432,3 +432,8 @@ FodyWeavers.xsd
 # JetBrains / Rider
 .idea/
 *.sln.iml
+
+#Docker
+compose.override.yaml
+compose.prod.yaml
+compose.stage.yaml
