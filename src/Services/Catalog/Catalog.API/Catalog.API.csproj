@@ -21,4 +21,8 @@
       <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Marten" Version="9.30.0" />
+    </ItemGroup>
+
 </Project>

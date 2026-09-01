@@ -25,6 +25,11 @@ builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
 
+builder.Services.AddMarten(opts =>
+{
+    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
+}).UseLightweightSessions(); 
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -35,8 +40,6 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-
-app.MapGet("/", () => "Hello World!");
 
 // Configure HTTP request pipeline.
 

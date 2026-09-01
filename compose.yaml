@@ -1,6 +1,6 @@
 ﻿services:
-  catalog.api:
-    image: catalog.api
-    build:
-      context: .
-      dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
+  catalogdb:
+    image: postgres:18-alpine
+    container_name: catalogdb
+volumes:
+  postgres_catalog_data:
