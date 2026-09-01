@@ -433,7 +433,12 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
-#Docker
+# Docker / Compose Environment Overrides
 compose.override.yaml
+compose.override.yml
 compose.prod.yaml
+compose.prod.yml
 compose.stage.yaml
+compose.stage.yml
+*.env
+!*.env.example
