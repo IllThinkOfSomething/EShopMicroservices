@@ -2,18 +2,22 @@ using Catalog.API.Models;
 
 namespace Catalog.API.Products.GetProductsById;
 
-public record GetProductByIdQuery(int Id) : IQuery<GetProductByIdResponse>;
-public record GetProductByIdResponse(Product Product);
+public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
+public record GetProductByIdResult(Product Product);
 
-internal class GetProductByIdHandler(IDocumentSession session, ILogger<GetProductByIdHandler> logger) : 
-    IQueryHandler<GetProductByIdQuery, GetProductByIdResponse>
+internal class GetProductByIdQueryHandler
+    (IDocumentSession session, ILogger<GetProductByIdQueryHandler> logger) 
+    : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
 {
-    public async Task<GetProductByIdResponse> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
+    public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
-        logger.LogInformation("GetProductByIdHandler.Handle called with {@Query}", query);
+        logger.LogInformation("GetProductByIdQueryHandler.Handle called with {@Query}", query);
         
         var product = await session.LoadAsync<Product>(query.Id,  cancellationToken);
+
+        if (product is null)
+            throw new ProductNotFoundException();
         
-        return new GetProductByIdResponse(product ?? new Product());
+        return new GetProductByIdResult(product);
     }
 }
